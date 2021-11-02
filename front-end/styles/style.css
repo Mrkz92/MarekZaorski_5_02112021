@@ -1,0 +1,19 @@
+body {
+  background-color: #cccccc;
+}
+
+body .nav, body .products, body .cart, body .informations, body .confirmation, body .footer {
+  background-color: #dddddd;
+  padding: 1rem;
+  border-radius: .5rem;
+  margin: .5rem 0;
+}
+
+.nav .navbar-brand-logo {
+  height: 50px;
+}
+
+.nav .navbar-nav {
+  margin-left: auto;
+}
+/*# sourceMappingURL=style.css.map */

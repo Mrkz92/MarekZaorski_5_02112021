@@ -1,0 +1,18 @@
+body {
+    background-color: rgb(204, 204, 204);
+    .nav, .products, .cart, .informations, .confirmation, .footer {
+    background-color: rgb(221, 221, 221);
+    padding: 1rem;
+    border-radius: .5rem;
+    margin: .5rem 0;
+    }
+}
+
+.nav {
+    .navbar-brand-logo {
+        height: 50px;
+    }
+    .navbar-nav {
+        margin-left: auto;
+    }
+}
