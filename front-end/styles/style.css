@@ -1,19 +1,34 @@
-body {
-  background-color: #cccccc;
+@font-face {
+  font-family: 'belligerent_madnessregular';
+  src: url("../styles/web fonts/belligerent-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
-body .nav, body .products, body .cart, body .informations, body .confirmation, body .footer {
-  background-color: #dddddd;
+body {
+  background-image: linear-gradient(120deg, #8f5bfe, #e18717);
+}
+
+.div-style {
+  background-color: rgba(221, 221, 221, 0.7);
   padding: 1rem;
   border-radius: .5rem;
   margin: .5rem 0;
 }
 
-.nav .navbar-brand-logo {
-  height: 50px;
+nav, .description, h1, h2, .product-name, footer {
+  font-family: 'belligerent_madnessregular', Arial, sans-serif;
 }
 
-.nav .navbar-nav {
+header {
+  margin: -1rem;
+}
+
+header .navbar-brand-logo {
+  height: 40px;
+}
+
+header .navbar-nav {
   margin-left: auto;
 }
 /*# sourceMappingURL=style.css.map */

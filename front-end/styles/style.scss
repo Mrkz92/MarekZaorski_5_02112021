@@ -1,16 +1,34 @@
-body {
-    background-color: rgb(204, 204, 204);
-    .nav, .products, .cart, .informations, .confirmation, .footer {
-    background-color: rgb(221, 221, 221);
-    padding: 1rem;
-    border-radius: .5rem;
-    margin: .5rem 0;
-    }
+@font-face {
+    font-family: 'belligerent_madnessregular';
+    src: url('../styles/web\ fonts/belligerent-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
-.nav {
+// Variables & mixins ----------//
+$grey : #CCCCCC;
+$clearGrey : #DDDDDD;
+//---------- //
+
+body {
+    background-image: linear-gradient(120deg, #8f5bfe, #e18717);
+}
+
+.div-style {
+    background-color: rgba($clearGrey, .7);
+    padding: 1rem;
+    border-radius: .5rem;
+    margin: .5rem 0 ;
+}
+
+nav, .description, h1, h2, .product-name, footer{
+    font-family: 'belligerent_madnessregular', Arial, sans-serif;
+}
+
+header {
+    margin: -1rem;
     .navbar-brand-logo {
-        height: 50px;
+        height: 40px;
     }
     .navbar-nav {
         margin-left: auto;
