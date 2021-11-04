@@ -18,15 +18,15 @@
 
         <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="../styles/style.css">
-        <link rel="stylesheet" type="text/css" href="../css/index.css">
+        <link rel="stylesheet" type="text/css" href="../styles/index.css">
         <!-- CSS -->    
     </head>
     <!-- Head -->
 
     <!-- Body -->
-    <body class="container">
+    <body class="container-fluid">
         <!-- Header -->
-        <header>
+        <header class="div-style">
             <div class="nav row">
                 <nav class="navbar navbar-expand-sm navbar-light">
                     <a class="navbar-brand" href="index.html">
@@ -50,14 +50,21 @@
         </header>
         <!-- Header -->
         <!-- Main -->
+        <section class="description">
+            <div class="description-container col div-style">
+                <h1 class="description-title">Bienvenue chez Orinoco !</h1>
+                <p>Le site parfait pour acheter un appareil photo plein de nostalgies.</p>
+            </div>
+        </section>
         <section class="products">
             <div class="products-container col">
-                <h1 class="products-title text-center">Nos appareils photo vintage</h1>
+                <h2 class="products-title">Nos produits</h1>
+                <div class="products-list row" id="products-list"></div>
             </div>
         </section>
         <!-- Main -->
         <!-- Footer -->
-        <footer class="footer row">
+        <footer class="footer row div-style">
             <ul class="list-inline text-center">
                 <li class="list-inline-item">A propos</li>
                 <li class="list-inline-item">Assistance</li>
@@ -66,7 +73,7 @@
         </footer>
         <!-- Footer -->
         <!-- JavaScript -->
-        <script type="text/javascript" src="../JS/index.js"></script>
+        <script src="../scripts/index.js"></script>
         <!-- JavaScript -->
     </body>
     <!-- Body -->
