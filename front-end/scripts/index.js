@@ -1,13 +1,11 @@
-const cameras = 'http://localhost:3000/api/cameras';
+const allProducts = 'http://localhost:3000/api/cameras';
 const productsList = document.getElementById("products-list");
 
-fetch(cameras)
-    .then(function(res) {
-        console.log("Les infos ont bien été récupérées");
-        return res.json();
-    })
+fetch(allProducts)
+    .then(res => res.json().then(console.log(res)))
+    
     .catch(function(err) {
-        console.error("Les infos n'ont pas pu être récupérées");
+        console.error(err);
         let productsListError = document.createElement("p");
         productsList.appendChild(productsListError);
         productsList.style.display = "flex";
@@ -15,9 +13,9 @@ fetch(cameras)
         productsListError.innerText = "Désolé, les articles ne peuvent être affichés. Veuillez allumer le serveur local.";
     })
     
-    .then(function (cameras) {
-        console.log(cameras)
-        for (let productsItem in cameras) {
+    .then(function(allProducts) {
+        console.log(allProducts)
+        for (let product in allProducts) {
             let productCard = document.createElement("div");
             productsList.appendChild(productCard);
             productCard.classList.add("product-card", "g-2", "p-0");
@@ -28,7 +26,7 @@ fetch(cameras)
 
             let productLink = document.createElement("a");
             productCard.appendChild(productLink);
-            productLink.href = "#";
+            productLink.href = `product.html?id=${allProducts[product]._id}`;
 
             let productFrame = document.createElement("div");
             productLink.appendChild(productFrame);
@@ -38,13 +36,13 @@ fetch(cameras)
 
             let productImage = document.createElement("img");
             productFrame.appendChild(productImage);
-            productImage.src = `${cameras[productsItem].imageUrl}`;
+            productImage.src = `${allProducts[product].imageUrl}`;
             productImage.classList.add("product-image");
             productImage.style.border = "solid .1px grey";
             productImage.style.borderRadius = ".5rem";
             productImage.style.width = "100%";
             productImage.style.height = "100%";
-            productImage.style.objectFit = "cover"
+            productImage.style.objectFit = "cover";
 
             let productInfos = document.createElement("div");
             productCard.appendChild(productInfos);
@@ -54,12 +52,12 @@ fetch(cameras)
 
             let productName = document.createElement("h5");
             productInfos.appendChild(productName);
-            productName.innerText = `${cameras[productsItem].name}`;
+            productName.innerText = `${allProducts[product].name}`;
             productName.classList.add("product-name");
 
             let productPrice = document.createElement("p");
             productInfos.appendChild(productPrice);
-            productPrice.innerText = `${cameras[productsItem].price/100}€`;
+            productPrice.innerText = `${allProducts[product].price/100}€`;
             productPrice.classList.add("product-price");
             productPrice.style.marginLeft = "auto";
         }
