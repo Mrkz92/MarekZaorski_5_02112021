@@ -1,21 +1,19 @@
-const allProducts = 'http://localhost:3000/api/cameras';
+const cameras = 'http://localhost:3000/api/cameras';
 const productsList = document.getElementById("products-list");
 
-fetch(allProducts)
-    .then(res => res.json().then(console.log(res)))
-    
+fetch(cameras)
+    .then(function(res) {
+        console.log("Les infos ont bien été récupérées");
+        return res.json();
+    })
     .catch(function(err) {
-        console.error(err);
-        let productsListError = document.createElement("p");
-        productsList.appendChild(productsListError);
-        productsList.style.display = "flex";
-        productsListError.classList.add("products-list-error");
-        productsListError.innerText = "Désolé, les articles ne peuvent être affichés. Veuillez allumer le serveur local.";
+        alert('Désolé, les articles ne peuvent être affichés suite à un problème serveur.')
+        console.error("Serveur local éteint, les infos n'ont pas pu être récupérées");
     })
     
-    .then(function(allProducts) {
-        console.log(allProducts)
-        for (let product in allProducts) {
+    .then(function (cameras) {
+        console.log(cameras)
+        for (let productsItem in cameras) {
             let productCard = document.createElement("div");
             productsList.appendChild(productCard);
             productCard.classList.add("product-card", "g-2", "p-0");
@@ -26,7 +24,7 @@ fetch(allProducts)
 
             let productLink = document.createElement("a");
             productCard.appendChild(productLink);
-            productLink.href = `product.html?id=${allProducts[product]._id}`;
+            productLink.href = `../html/product.html?id=${cameras[productsItem]._id}`;
 
             let productFrame = document.createElement("div");
             productLink.appendChild(productFrame);
@@ -36,13 +34,13 @@ fetch(allProducts)
 
             let productImage = document.createElement("img");
             productFrame.appendChild(productImage);
-            productImage.src = `${allProducts[product].imageUrl}`;
+            productImage.src = `${cameras[productsItem].imageUrl}`;
             productImage.classList.add("product-image");
             productImage.style.border = "solid .1px grey";
             productImage.style.borderRadius = ".5rem";
             productImage.style.width = "100%";
             productImage.style.height = "100%";
-            productImage.style.objectFit = "cover";
+            productImage.style.objectFit = "cover"
 
             let productInfos = document.createElement("div");
             productCard.appendChild(productInfos);
@@ -52,12 +50,12 @@ fetch(allProducts)
 
             let productName = document.createElement("h5");
             productInfos.appendChild(productName);
-            productName.innerText = `${allProducts[product].name}`;
+            productName.innerText = `${cameras[productsItem].name}`;
             productName.classList.add("product-name");
 
             let productPrice = document.createElement("p");
             productInfos.appendChild(productPrice);
-            productPrice.innerText = `${allProducts[product].price/100}€`;
+            productPrice.innerText = `${cameras[productsItem].price/100}€`;
             productPrice.classList.add("product-price");
             productPrice.style.marginLeft = "auto";
         }
