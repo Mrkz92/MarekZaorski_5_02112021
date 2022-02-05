@@ -1,7 +1,7 @@
 (async function(){
     const productId = getProductId()
     const productData = await getProductData(productId)
-    await dispatchData(productData)
+    dispatchData(productData)
 }) ()
 
 /* Récupération de l'ID produit */
@@ -22,17 +22,17 @@ function getProductData(productId) {
         .then(res => res.json())
         .catch(function(err){
             alert("Désolé, l'article ne peut pas être affiché pour l'instant.")
-            console.error("Ne fonctione pas");
+            console.error("Ne fonctionne pas");
         })
 }
 
 /* Séléction de la classe HTML accueillant les datas */
 const productContainer = document.querySelector(".product-container");
 
-/* Dispatch des datas */
+// DISPATCH DATAS
 function dispatchData(productData) {
     
-    // Création de la fiche produit
+    // CREATE PRODUCT CARD
     const productCard = document.createElement("div")
     productCard.classList.add("product-card")
     productContainer.appendChild(productCard)
@@ -46,7 +46,6 @@ function dispatchData(productData) {
         productImage.src = productData.imageUrl
         productFrame.appendChild(productImage)
     
-        // Création fiche infos
         const productInfos = document.createElement("div")
         productInfos.classList.add("product-infos")
         productCard.appendChild(productInfos)
@@ -61,27 +60,44 @@ function dispatchData(productData) {
             productDescription.innerHTML = productData.description
             productInfos.appendChild(productDescription)
 
-            // Création sélection d'option
+            // CREATE FORM SELECTOR
+            const optionForm = document.createElement("form")
+            optionForm.classList.add("product_option__from")
+            productInfos.appendChild(optionForm)
+
+            const label = document.createElement("label")
+            label.classList.add("form-label")
+            label.innerText = "Choisissez une option"
+            optionForm.appendChild(label) 
+
             const optionSelector = document.createElement("select")
             optionSelector.classList.add("product-option__list")
-            productInfos.appendChild(optionSelector)
+            optionForm.appendChild(optionSelector)
 
-            let option = document.createElement("option")
-            option.classList.add("product-option__value")
-            optionSelector.appendChild(option)
-        
-            // THE JSON ARRAY.
-            let optionsJson = productData.lenses
-            console.log(optionsJson)
-                populateOption(option, optionsJson);
-                function populateOption(option, optionsJson) {
-                    
-                    let optionValue = document.getElementsByClassName("product-option__value")
-                    for (i = 0; i < optionsJson.length; i++) {
-                        // POPULATE SELECT ELEMENT WITH JSON.
-                        optionValue.value = optionsJson[i];
-                    }
+            // JSON ARRAY
+            let optionJson = productData.lenses
+            console.log(optionJson)
+
+            // POPULARTE SELECT OPTION
+            let select = document.getElementsByClassName("product-option__list")
+                for(let i = 0; i < optionJson.length; i++) {
+                    let opt = optionJson[i];
+                    let el = document.createElement("option");
+                    el.innerHTML = opt;
+                    el.value = opt;
+                    optionSelector.appendChild(el);
                 }
+
+            // populateOption()
+            // function populateOption(el, optionJson) {
+            //         let optionValue = document.getElementsByClassName("product-option")
+            //         for (i = 0; i < optionJson.length; i++) {
+            //             // POPULATE SELECT ELEMENT WITH JSON.
+            //             optionValue.innerText = optionJson[i]
+            //             optionValue.value = optionJson[i]
+            //             console.log(optionValue);
+            //         }
+            // }
 
             const productPrice = document.createElement("p")
             productPrice.classList.add("product-price")
@@ -94,3 +110,4 @@ function dispatchData(productData) {
             productOrderButton.innerHTML = "Ajouter au panier"
             productInfos.appendChild(productOrderButton)
 }
+
