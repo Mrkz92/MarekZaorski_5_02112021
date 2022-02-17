@@ -44,12 +44,11 @@
   font-weight: bold;
 }
 
-.product-card .product-order__button {
-  padding: .3rem;
+.product-card .submit-button {
+  padding: .3rem 0;
   width: auto;
   height: auto;
   border-radius: .5rem;
-  position: absolute;
   bottom: 1rem;
   right: 1rem;
 }

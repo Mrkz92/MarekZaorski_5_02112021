@@ -4,8 +4,9 @@
     dispatchData(productData)
 }) ()
 
-/* Récupération de l'ID produit */
+// Récupération de l'ID produit
 const queryString_url_id = window.location.search;
+console.log(queryString_url_id)
 const urlSearchParams = new URLSearchParams(queryString_url_id);
 
 getProductId();
@@ -15,7 +16,7 @@ function getProductId() {
     // console.log(id)
 }
 
-/* Récupération des datas en fonction de l'ID produit */
+// Récupération des datas en fonction de l'ID produit
 getProductData();
 function getProductData(productId) {
     return fetch(`http://localhost:3000/api/cameras/${productId}`)
@@ -26,7 +27,7 @@ function getProductData(productId) {
         })
 }
 
-/* Séléction de la classe HTML accueillant les datas */
+// Séléction de la classe HTML accueillant les datas
 const productContainer = document.querySelector(".product-container");
 
 // DISPATCH DATAS
@@ -48,6 +49,7 @@ function dispatchData(productData) {
     
         const productInfos = document.createElement("div")
         productInfos.classList.add("product-infos")
+        productInfos.id = "product-infos"
         productCard.appendChild(productInfos)
 
             const productName = document.createElement("h2")
@@ -62,16 +64,18 @@ function dispatchData(productData) {
 
             // CREATE FORM SELECTOR
             const optionForm = document.createElement("form")
-            optionForm.classList.add("product_option__from")
+            optionForm.classList.add("option-form")
+            optionForm.id = "option-form"
             productInfos.appendChild(optionForm)
 
             const label = document.createElement("label")
             label.classList.add("form-label")
-            label.innerText = "Choisissez une option"
+            label.innerText = "Choisir une option :"
             optionForm.appendChild(label) 
 
             const optionSelector = document.createElement("select")
-            optionSelector.classList.add("product-option__list")
+            optionSelector.id = "option-list"
+            optionSelector.classList.add("option-list")
             optionForm.appendChild(optionSelector)
 
             // JSON ARRAY
@@ -79,10 +83,11 @@ function dispatchData(productData) {
             console.log(optionJson)
 
             // POPULARTE SELECT OPTION
-            let select = document.getElementsByClassName("product-option__list")
+            let select = document.getElementById("option-list")
                 for(let i = 0; i < optionJson.length; i++) {
                     let opt = optionJson[i];
                     let el = document.createElement("option");
+                    el.add = "Choisissez une option :"
                     el.innerHTML = opt;
                     el.value = opt;
                     optionSelector.appendChild(el);
@@ -101,13 +106,40 @@ function dispatchData(productData) {
 
             const productPrice = document.createElement("p")
             productPrice.classList.add("product-price")
+            productPrice.id = "product-price"
             productPrice.innerHTML = productData.price /100 + `<span>€</span>`
             productInfos.appendChild(productPrice)
-
-            const productOrderButton = document.createElement("button")
-            productOrderButton.classList.add("product-order__button")
-            productOrderButton.type = "submit"
-            productOrderButton.innerHTML = "Ajouter au panier"
-            productInfos.appendChild(productOrderButton)
 }
+
+// REACH OPTION CHOICE
+const optionChoice = document.querySelector("#option-list");
+console.log(optionChoice)
+
+// CREATE SUBMIT BUTTON
+const infos = document.querySelector("#product-infos");
+const submitButton = document.createElement("button")
+submitButton.classList.add("submit-button")
+submitButton.id = "submit-button"
+submitButton.innerText = "Ajouter au panier"
+infos.appendChild(submitButton)
+submitButton.addEventListener("click", (event)=>{
+    event.preventDefault();
+    
+    // REACH USER CHOICE
+    const productChoice = {
+        productName : productData.name,
+        productId : productData._id,
+        productOption : optionChoice.value,
+        productQuantity : 1,
+        productPrice : productData.price /100
+    }
+    console.log(productChoice)
+
+    // CREATE LOCAL STORAGE
+
+        // STOCK USER CHOICE IN THE LOCAL STORAGE
+        productChoiceJson();
+        const productChoiceJson = JSON.stringify(productChoice);
+        
+    });
 
