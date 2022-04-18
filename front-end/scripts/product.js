@@ -87,59 +87,44 @@ function dispatchData(productData) {
                 for(let i = 0; i < optionJson.length; i++) {
                     let opt = optionJson[i];
                     let el = document.createElement("option");
-                    el.add = "Choisissez une option :"
                     el.innerHTML = opt;
                     el.value = opt;
                     optionSelector.appendChild(el);
                 }
 
-            // populateOption()
-            // function populateOption(el, optionJson) {
-            //         let optionValue = document.getElementsByClassName("product-option")
-            //         for (i = 0; i < optionJson.length; i++) {
-            //             // POPULATE SELECT ELEMENT WITH JSON.
-            //             optionValue.innerText = optionJson[i]
-            //             optionValue.value = optionJson[i]
-            //             console.log(optionValue);
-            //         }
-            // }
-
             const productPrice = document.createElement("p")
             productPrice.classList.add("product-price")
             productPrice.id = "product-price"
             productPrice.innerHTML = productData.price /100 + `<span>€</span>`
-            productInfos.appendChild(productPrice)
+            productInfos.appendChild(productPrice);
+
+            // REACH OPTION CHOICE
+            const optionChoice = document.querySelector("#option-list");
+            console.log(optionChoice)
+
+            // CREATE SUBMIT BUTTON
+            const infos = document.querySelector("#product-infos");
+            const submitButton = document.createElement("button")
+            submitButton.classList.add("submit-button")
+            submitButton.id = "submit-button"
+            submitButton.innerText = "Ajouter au panier"
+            infos.appendChild(submitButton)
+            submitButton.addEventListener("click", (event)=>{
+                event.preventDefault()
+                
+                // REACH USER CHOICE
+                const productChoice = {
+                    productName : productData.name,
+                    productId : productData._id,
+                    productOption : optionChoice.value,
+                    productQuantity : 1,
+                    productPrice : productData.price /100
+                }
+                console.log(productChoice)
+             
+                // CREATE LOCAL STORAGE
+
+                // STOCK USER CHOICE IN THE LOCAL STORAGE
+                    localStorage.setItem('productChoiceJson', JSON.stringify(productChoice))
+            })
 }
-
-// REACH OPTION CHOICE
-const optionChoice = document.querySelector("#option-list");
-console.log(optionChoice)
-
-// CREATE SUBMIT BUTTON
-const infos = document.querySelector("#product-infos");
-const submitButton = document.createElement("button")
-submitButton.classList.add("submit-button")
-submitButton.id = "submit-button"
-submitButton.innerText = "Ajouter au panier"
-infos.appendChild(submitButton)
-submitButton.addEventListener("click", (event)=>{
-    event.preventDefault();
-    
-    // REACH USER CHOICE
-    const productChoice = {
-        productName : productData.name,
-        productId : productData._id,
-        productOption : optionChoice.value,
-        productQuantity : 1,
-        productPrice : productData.price /100
-    }
-    console.log(productChoice)
-
-    // CREATE LOCAL STORAGE
-
-        // STOCK USER CHOICE IN THE LOCAL STORAGE
-        productChoiceJson();
-        const productChoiceJson = JSON.stringify(productChoice);
-        
-    });
-
