@@ -1,7 +1,8 @@
+
 (async function(){
     const productId = getProductId()
     const productData = await getProductData(productId)
-    dispatchData(productData)
+    dispatchData(productData);
 }) ()
 
 // Récupération de l'ID produit
@@ -14,6 +15,7 @@ function getProductId() {
     return new URL (location.href).searchParams.get("id")
     // const id = urlSearchParams.get("id")
     // console.log(id)
+
 }
 
 // Récupération des datas en fonction de l'ID produit
@@ -87,10 +89,22 @@ function dispatchData(productData) {
                 for(let i = 0; i < optionJson.length; i++) {
                     let opt = optionJson[i];
                     let el = document.createElement("option");
+                    //el.inner = "Choisissez une option :"
                     el.innerHTML = opt;
                     el.value = opt;
                     optionSelector.appendChild(el);
                 }
+
+            // populateOption()
+            // function populateOption(el, optionJson) {
+            //         let optionValue = document.getElementsByClassName("product-option")
+            //         for (i = 0; i < optionJson.length; i++) {
+            //             // POPULATE SELECT ELEMENT WITH JSON.
+            //             optionValue.innerText = optionJson[i]
+            //             optionValue.value = optionJson[i]
+            //             console.log(optionValue);
+            //         }
+            // }
 
             const productPrice = document.createElement("p")
             productPrice.classList.add("product-price")
@@ -108,23 +122,39 @@ function dispatchData(productData) {
             submitButton.classList.add("submit-button")
             submitButton.id = "submit-button"
             submitButton.innerText = "Ajouter au panier"
-            infos.appendChild(submitButton)
-            submitButton.addEventListener("click", (event)=>{
-                event.preventDefault()
-                
-                // REACH USER CHOICE
-                const productChoice = {
-                    productName : productData.name,
-                    productId : productData._id,
-                    productOption : optionChoice.value,
-                    productQuantity : 1,
-                    productPrice : productData.price /100
-                }
-                console.log(productChoice)
-             
-                // CREATE LOCAL STORAGE
+            infos.appendChild(submitButton);
 
-                // STOCK USER CHOICE IN THE LOCAL STORAGE
-                    localStorage.setItem('productChoiceJson', JSON.stringify(productChoice))
-            })
+            const getAddToCartButton = document.querySelector("#submit-button");
+            
+
+
+            // Récupération des objets et d'ajout au panier
+            getAddToCartButton.addEventListener("click", (event)=>{
+            event.preventDefault();
+
+            // Récupération de l'objet produit choisis par le User
+            const productChoice = {
+                productName : productData.name,
+                productId : productData._id,
+                productOption : optionChoice.value,
+                productQuantity : 1,
+                productPrice : productData.price /100
+            };
+
+            //Récupération des données pour les convertir en JSON
+            addProductToLocalStorage(productChoice);
+        });
+}
+
+// Fonction pour ajouter les produits au localstorage
+const addProductToLocalStorage = (prod) => {
+    if(localStorage.getItem('cart') !== null){
+        let productLocalStorage = Array.from(JSON.parse(localStorage.getItem("cart")));
+        productLocalStorage.push(prod);
+        localStorage.setItem('cart', JSON.stringify(productLocalStorage));
+    }
+    else {
+        localStorage.setItem('cart', JSON.stringify(prod));
+    }
+
 }
